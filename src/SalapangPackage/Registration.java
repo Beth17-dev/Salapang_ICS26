@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package SalapangPackage;
 
-/**
- *
- * @author ADMIN
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Registration extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Registration.class.getName());
@@ -82,7 +79,7 @@ public class Registration extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(153, 0, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Sign In");
+        jButton2.setText("Sign Up");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
@@ -171,11 +168,45 @@ public class Registration extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         new Login().setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+    String fullname = jTextField1.getText();
+    String email = jTextField2.getText();
+    String username = jTextField3.getText();
+    String password = new String(jPasswordField1.getPassword());
+
+    // validation
+    if(email.isEmpty() || password.isEmpty()){
+        javax.swing.JOptionPane.showMessageDialog(this, "Please fill all fields");
+        return;
+    }
+
+    try {
+    Connection con = CONNECTION.getConnection();
+
+    String sql = "INSERT INTO users (fullname, email, username, password) VALUES (?, ?, ?, ?)";
+
+    PreparedStatement pst = con.prepareStatement(sql);
+
+    pst.setString(1, fullname);
+    pst.setString(2, email);
+    pst.setString(3, username);
+    pst.setString(4, password);
+
+    pst.executeUpdate();
+
+    javax.swing.JOptionPane.showMessageDialog(this, "Registered Successfully!");
+
+    new Login().setVisible(true);
+    this.dispose();
+
+} catch (Exception e) {
+    javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

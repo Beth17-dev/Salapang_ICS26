@@ -4,6 +4,11 @@
  */
 package SalapangPackage;
 
+
+ import java.sql.Connection;
+ import java.sql.PreparedStatement;
+ import java.sql.ResultSet;
+ import javax.swing.JOptionPane;
 /**
  *
  * @author ADMIN
@@ -173,54 +178,47 @@ public class Login extends javax.swing.JFrame {
         
         String email = jTextField1.getText();
         String password = new String(jPasswordField1.getPassword());
+    
+    Connection con = CONNECTION.getConnection();
+     if (con == null) {
+           JOptionPane.showMessageDialog(this, "Database connection failed!");
+     return;}
+    
+   try {
+    String sql = "SELECT * FROM account WHERE email=? AND password=?";
+    PreparedStatement pst = con.prepareStatement(sql);
 
-    if(email.equals("admin") && password.equals("1234")){
-    javax.swing.JOptionPane.showMessageDialog(this, "Login Successful");
+    pst.setString(1, email);
+    pst.setString(2, password);
 
-    // mo open sa Dashboard
-    new Dashboard().setVisible(true);
+    ResultSet rs = pst.executeQuery();
 
-    // mo close sa login
-    this.dispose();
-    }else{
-    javax.swing.JOptionPane.showMessageDialog(this, "Wrong email or password");
-}
+    if (rs.next()) {
+        JOptionPane.showMessageDialog(this, "Login Successful");
+            Dashboard d = new Dashboard();
+            d.setVisible(true);
+            d.setLocationRelativeTo(null);
+            this.dispose(); 
+      
+    } else {
+        JOptionPane.showMessageDialog(this, "Wrong email or password");
+        }
+    } catch (Exception e) {
+      e.printStackTrace();
+   
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    // Open Registration form
-    Registration reg = new Registration();
-    reg.setVisible(true);
-
-    // Optional: close login
-    this.dispose();
+       new Registration().setVisible(true);
+       this.dispose();
+   
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -234,4 +232,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new Login().setVisible(true);
+        }
+    });
+}
 }

@@ -4,10 +4,21 @@
  */
 package SalapangPackage;
 
-/**
- *
- * @author ADMIN
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class CONNECTION {
-    
+
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/salapangguiapp",
+                "root",
+                ""
+            );
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
