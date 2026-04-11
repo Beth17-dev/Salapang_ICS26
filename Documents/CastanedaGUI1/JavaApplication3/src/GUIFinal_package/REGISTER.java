@@ -94,6 +94,8 @@ public class REGISTER extends javax.swing.JFrame {
         jLabel3.setText("Email:");
         jPanel2.add(jLabel3);
         jLabel3.setBounds(40, 180, 50, 20);
+
+        jTextField1.addActionListener(this::jTextField1ActionPerformed);
         jPanel2.add(jTextField1);
         jTextField1.setBounds(40, 200, 420, 22);
 
@@ -195,12 +197,13 @@ public class REGISTER extends javax.swing.JFrame {
         try {
             Connection conn = connectionDB_1.getConnection();
 
-            String sql = "INSERT INTO user(username, password) VALUES (?, ?)";
+            String sql = "INSERT INTO user(username, password, email) VALUES (?, ?, ?)";
             PreparedStatement pst = conn.prepareStatement(sql);
 
             pst.setString(1, jTextField2.getText()); // username
-            pst.setString(2, new String(jPasswordField1.getPassword()));
-
+            pst.setString(3, new String(jPasswordField1.getPassword()));
+            pst.setString(2, jTextField1.getText());
+            
             pst.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Registered successfully!");
@@ -219,6 +222,10 @@ public class REGISTER extends javax.swing.JFrame {
        new LOGIN().setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -144,7 +144,7 @@ public class LOGIN extends javax.swing.JFrame {
         jButton2.setText("REGISTER");
         jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel2.add(jButton2);
-        jButton2.setBounds(290, 410, 80, 20);
+        jButton2.setBounds(290, 410, 90, 20);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 102));
