@@ -175,37 +175,37 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-        String email = jTextField1.getText();
-        String password = new String(jPasswordField1.getPassword());
-    
-    Connection con = CONNECTION.getConnection();
-     if (con == null) {
-           JOptionPane.showMessageDialog(this, "Database connection failed!");
-     return;}
-    
-   try {
-    String sql = "SELECT * FROM account WHERE email=? AND password=?";
-    PreparedStatement pst = con.prepareStatement(sql);
-
-    pst.setString(1, email);
-    pst.setString(2, password);
-
-    ResultSet rs = pst.executeQuery();
-
-    if (rs.next()) {
-        JOptionPane.showMessageDialog(this, "Login Successful");
-            Dashboard d = new Dashboard();
-            d.setVisible(true);
-            d.setLocationRelativeTo(null);
-            this.dispose(); 
-      
-    } else {
-        JOptionPane.showMessageDialog(this, "Wrong email or password");
-        }
-    } catch (Exception e) {
-      e.printStackTrace();
-   
+//        
+//        String email = jTextField1.getText();
+//        String password = new String(jPasswordField1.getPassword());
+//    
+//    Connection con = CONNECTION.getConnection();
+//     if (con == null) {
+//           JOptionPane.showMessageDialog(this, "Database connection failed!");
+//     return;}
+//    
+//   try {
+//    String sql = "SELECT * FROM account WHERE email=? AND password=?";
+//    PreparedStatement pst = con.prepareStatement(sql);
+//
+//    pst.setString(1, email);
+//    pst.setString(2, password);
+//
+//    ResultSet rs = pst.executeQuery();
+//
+//    if (rs.next()) {
+//        JOptionPane.showMessageDialog(this, "Login Successful");
+//            Dashboard d = new Dashboard();
+//            d.setVisible(true);
+//            d.setLocationRelativeTo(null);
+//            this.dispose(); 
+//      
+//    } else {
+//        JOptionPane.showMessageDialog(this, "Wrong email or password");
+//        }
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//   
     }//GEN-LAST:event_jButton3ActionPerformed
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
